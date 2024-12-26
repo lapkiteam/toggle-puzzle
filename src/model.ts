@@ -12,25 +12,40 @@ export type Model = {
 }
 
 export namespace Model {
+  export function create(lampsCount: number): Model {
+    const lamps = new Array(lampsCount)
+    for (let i = 0; i < lamps.length; i++) {
+      lamps[i] = false
+    }
+    return {
+      lamps
+    }
+  }
+
   export function toggle(model: Model, switchIndex: number): Model {
     const lamps = model.lamps
     switch (switchIndex) {
       case 0:
+        const next = switchIndex + 1
         return update(model, { lamps: {
           [switchIndex]: { $set: Lamp.toggle(lamps[switchIndex]) },
-          [switchIndex + 1]: { $set: Lamp.toggle(lamps[switchIndex + 1]) }
+          [next]: { $set: Lamp.toggle(lamps[next]) }
         }})
       case model.lamps.length - 1:
+        const prev = switchIndex - 1
         return update(model, { lamps: {
-          [switchIndex - 1]: { $set: Lamp.toggle(lamps[switchIndex - 1]) },
+          [prev]: { $set: Lamp.toggle(lamps[prev]) },
           [switchIndex]: { $set: Lamp.toggle(lamps[switchIndex]) },
         }})
-      default:
+      default: {
+        const prev = switchIndex - 1
+        const next = switchIndex + 1
         return update(model, { lamps: {
-          [switchIndex - 1]: { $set: Lamp.toggle(lamps[switchIndex - 1]) },
+          [prev]: { $set: Lamp.toggle(lamps[prev]) },
           [switchIndex]: { $set: Lamp.toggle(lamps[switchIndex]) },
-          [switchIndex + 1]: { $set: Lamp.toggle(lamps[switchIndex + 1]) }
+          [next]: { $set: Lamp.toggle(lamps[next]) }
         }})
+      }
     }
   }
 }
