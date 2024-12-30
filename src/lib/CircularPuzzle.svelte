@@ -5,7 +5,7 @@
   const polygonRadius = 100
   const lampsCount = 10
   const lampCoords = regularPolygon(polygonRadius, polygonRadius, polygonRadius, 0, lampsCount)
-  let puzzle = Model.create(lampsCount)
+  let puzzle = Model.create("Circular", lampsCount)
 </script>
 
 <div class="container">
