@@ -2,7 +2,7 @@
   import { Model } from "../model"
 
   const lampsCount = 4
-  let puzzle = Model.create(lampsCount)
+  let puzzle = Model.create("Linear", lampsCount)
 </script>
 
 <div class="container">
