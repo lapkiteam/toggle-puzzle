@@ -1,14 +1,18 @@
 <script lang="ts">
   import { regularPolygon } from "../utils"
   import { Model } from "../model"
+  import Character from "./Character.svelte"
 
-  const polygonRadius = 100
-  const lampsCount = 10
+  const polygonRadius = 400 / 2
+  const lampsCount = 6
   const lampCoords = regularPolygon(polygonRadius, polygonRadius, polygonRadius, 0, lampsCount)
   let puzzle = Model.create("Circular", lampsCount)
 </script>
 
 <div class="container">
+  <div class="character">
+    <Character puzzle={puzzle} />
+  </div>
   {#each puzzle.lamps as lamp, index}
     <button
       class="lamp {lamp && "lamp-on"}"
@@ -22,14 +26,13 @@
   {/each}
 </div>
 
-
 <style>
   .container {
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
     /* background-color: red; */
     /* border-radius: 100%; */
-
+    position: relative;
     text-align: left;
   }
   .lamp {
@@ -38,5 +41,10 @@
   }
   .lamp-on {
     background-color: antiquewhite;
+  }
+  .character {
+    left: 10%;
+    top: 14%;
+    position: relative;
   }
 </style>
